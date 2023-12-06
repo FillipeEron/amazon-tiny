@@ -123,6 +123,12 @@ pw.Widget contentTableProducts(pw.Context context, Tiny tiny) {
       },
       data: contenTable,
       context: context,
+      headerAlignments: {
+        0: pw.Alignment.center,
+        1: pw.Alignment.center,
+        2: pw.Alignment.center,
+        3: pw.Alignment.center,
+      },
       cellAlignments: {
         0: pw.Alignment.centerLeft,
         1: pw.Alignment.center,

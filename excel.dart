@@ -4,7 +4,13 @@ import 'dart:io';
 import 'package:excel/excel.dart';
 import 'package:pdf/widgets.dart';
 
-void main() {
+import 'TinyProduct.dart';
+
+Future<void> main() async {
+  String id = '811346194';
+  var data = await TinyProduct.getProduct(id);
+  print(data);
+  /*
   String file = './produtos_2023-12-23-19-24-10.xlsx';
   var bytes = File(file).readAsBytesSync();
   var excel = Excel.decodeBytes(bytes);
@@ -24,11 +30,18 @@ void main() {
       );
       return product;
     }).toList();
-    products.removeAt(0);
-    print(products[0].tipoProduto);
+
+    List<Product> stock = products
+        .where(
+            (product) => product.tipoProduto == TypeProduct.materiaPrima.type)
+        .toList();
+    print(stock[0].tipoProduto);
+    print(stock[1].tipoProduto);
+    print(stock[2].tipoProduto);
   } else {
     print('fail search cell');
   }
+  */
 }
 
 class Product {
@@ -70,6 +83,20 @@ enum CollumnsMap {
         return 9;
       case CollumnsMap.tipoProduto:
         return 29;
+    }
+  }
+}
+
+enum TypeProduct {
+  simples,
+  materiaPrima;
+
+  String get type {
+    switch (this) {
+      case TypeProduct.simples:
+        return 'S';
+      case TypeProduct.materiaPrima:
+        return 'M';
     }
   }
 }

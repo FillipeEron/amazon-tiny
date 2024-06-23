@@ -1,41 +1,57 @@
 import 'Tiny.dart';
 import 'tinyApi.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert' as convert;
 
 Future<void> main() async {
-  var tiny = Tiny('183');
-  tiny.id = await tiny.getIdfromAPI();
-  tiny.clientName = await tiny.getClientNameFromAPI();
-  tiny.allProducts = await Tiny.getAllProducts(tiny.id);
-  print(tiny.id);
-  print(tiny.clientName);
-  print(tiny.allProducts);
-  //var teste = tiny.resquestCode;
-  //print(await tiny.clientName);
-  //print(await Tiny.getAllProducts(await tiny.id));
+  const String token = '3bafd53e2da95f4bd72afb6874d0e563f90b54bf';
+  const String formato = 'json';
 
-  //await tiny.uploadInformation;
-  //print(await tiny.id);
-  //print(tiny.clietName);
+  String id = '810437368';
 
-  /*var tinyApi = TinyApi('183');
-  tinyApi.idCodePedido = await TinyApi.getIdCode(tinyApi.idPedido);
-  tinyApi.printIdCode();
-  List<dynamic> itens = await tinyApi.getAllProducts();
+  try {
+    var newUrl = Uri.parse('https://api.tiny.com.br/api2/produto.obter.php')
+        .replace(queryParameters: {
+      'token': token,
+      'formato': formato,
+      'id': id,
+    });
 
-  var itensEstruturados = itens.map((item) {
-    List<String> subList = [];
-    if (item['item']['info_adicional'] != null) {
-      String descricao =
-          item['item']['descricao'] + ' - ' + item['item']['info_adicional'];
-      subList.add(descricao);
-    }
-    subList.add(item['item']['descricao']);
-    //subList.add(item['item']['info_adicional']);
-    subList.add(item['item']['codigo']);
-    subList.add(item['item']['unidade']);
-    subList.add(item['item']['quantidade']);
+    var response = await http.post(newUrl);
+    var data = convert.jsonDecode(response.body);
+    print(data);
+  } catch (e) {
+    throw 'GETPRODUCTS FAIL';
+  }
 
-    return subList;
-  }).toList();
-  print(itensEstruturados.runtimeType);*/
+  try {
+    var newUrl = Uri.parse('https://api.tiny.com.br/api2/produto.obter.tags')
+        .replace(queryParameters: {
+      'token': token,
+      'formato': formato,
+      'id': id,
+    });
+
+    var response = await http.post(newUrl);
+    var data = convert.jsonDecode(response.body);
+    print(data);
+  } catch (e) {
+    throw 'GETPRODUCTS FAIL';
+  }
+
+  try {
+    var newUrl =
+        Uri.parse('https://api.tiny.com.br/api2/produto.obter.estoque.php')
+            .replace(queryParameters: {
+      'token': token,
+      'formato': formato,
+      'id': id,
+    });
+
+    var response = await http.post(newUrl);
+    var data = convert.jsonDecode(response.body);
+    print(data);
+  } catch (e) {
+    throw 'GETPRODUCTS FAIL';
+  }
 }

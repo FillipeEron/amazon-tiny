@@ -21,6 +21,8 @@ void main(List<String> arg) async {
         padding(top: 10, bottom: 10),
         contentText(),
         signature(),
+        padding(top: 10, bottom: 10),
+        contentObservation(),
       ],
     ));
 
@@ -144,6 +146,18 @@ pw.Widget contentText() {
       child: pw.Text(
           'Declaro que recebi da empresa F P Matos Fabricação de Artefatos e Serviços de Madeira Eireli, os itens identificadas neste documento de saída em perfeito estado e nas quantidades informadas.',
           textAlign: pw.TextAlign.justify),
+    ),
+  ]);
+}
+
+pw.Widget contentObservation() {
+  return pw.Column(children: [
+    pw.Container(
+      alignment: pw.Alignment.topLeft,
+      padding: pw.EdgeInsets.only(bottom: 70),
+      child: pw.Text(' Observação:', textAlign: pw.TextAlign.justify),
+      decoration: pw.BoxDecoration(border: pw.Border.all()),
+      width: 700,
     ),
   ]);
 }
